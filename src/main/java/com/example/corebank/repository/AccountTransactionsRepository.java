@@ -8,15 +8,11 @@ import org.springframework.data.repository.query.Param;
 import java.math.BigDecimal;
 
 public interface AccountTransactionsRepository extends JpaRepository<AccountTransactionsEntity, Long> {
-
-
-    @Query("""
-        SELECT COALESCE(SUM(t.amount), 0)
-        FROM account_transactions t
-        JOIN t.accounts a
-        JOIN t.transactionStatus s
-        WHERE a.id = :accountId
-          AND s.code = 'SUCCESS'
-        """)
-    BigDecimal getBalance(@Param("accountId") Long accountId);
+    @Query(value = "SELECT COALESCE(SUM(t.amount),0)\n" +
+            "        FROM account_transactions t\n" +
+            "        JOIN accounts a on t.account_id  = a.id\n" +
+            "        JOIN transaction_status s on t.transaction_status  = s.code\n" +
+            "        WHERE a.account_number = :accountNumber\n" +
+            "          AND s.code = 'SUCCESS'\n",nativeQuery = true )
+    BigDecimal getBalance(@Param("accountNumber") String accountNumber);
 }

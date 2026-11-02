@@ -4,9 +4,12 @@ package com.example.corebank.request;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Setter
 @Getter
-public class AccountRequest {
+public class CheckAccountRequest {
     private String accountNumber;
     private String customerCode;
+    private BigDecimal amount;
 }

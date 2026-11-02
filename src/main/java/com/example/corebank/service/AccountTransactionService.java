@@ -16,9 +16,9 @@ public class AccountTransactionService {
         this.accountTransactionsRepository = accountTransactionsRepository;
     }
 
-    public BigDecimal getBalance(Long accountId){
+    public BigDecimal getBalance(String accountNumber){
         try {
-            return accountTransactionsRepository.getBalance(accountId);
+            return accountTransactionsRepository.getBalance(accountNumber);
         } catch (Exception e) {
             throw new RuntimeException("loi khong lay dc so du tai khoan" +e.getMessage());
         }
